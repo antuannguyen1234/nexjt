@@ -1,16 +1,25 @@
-import Link from 'next/link';
+'use client'
+import Apptable from "./components/table/table"
+import useSWR from 'swr'
 
-const HoidanIT = () => {
+
+export default function App() {
+    const fetcher = (url: string) => fetch(url).then((res) => res.json());
+    const { data, error, isLoading } = useSWR(
+        "http://localhost:8000/blogs", fetcher,
+        {
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false
+        }
+    )
+    if (!data) {
+        return <div>....loading</div>
+    }
+
     return (
-        <div className="navigator">
-
-            <ul>
-                <li><Link href="/facebook"> Link to Facebook page</Link></li>
-                <li><Link href="/tiktok"> Link to Tiktok page</Link></li>
-                <li><Link href="/insta"> Link to Insta page</Link></li>
-            </ul>
+        <div>
+            <Apptable blogs={data} />
         </div>
     )
-}
-
-export default HoidanIT
+} 

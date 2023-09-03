@@ -1,6 +1,14 @@
-
+'use client'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
+import Link from 'next/link'
+import content_style from "./styles/app.module.css"
+import app_style from "./styles/app.module.css"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +24,31 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+
+      <body className={inter.className}>
+        <div className="header">
+          <Navbar expand="lg" className="bg-body-tertiary">
+            <Container>
+              <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                  <Link href={"/components/facebook"} className='nav-link'>Facebook</Link>
+                  <Link href={"/components/tiktok"} className='nav-link'>Tiktok</Link>
+                  <Link href={"/components/insta"} className='nav-link'>Instagram</Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        </div>
+        <div className={app_style['content']}>  {children} </div>
+
+
+        <div className={app_style['footer']}>
+          Khoa hoc Next JS voi hoidanIT.com
+        </div>
+
+      </body>
     </html>
   )
 }
